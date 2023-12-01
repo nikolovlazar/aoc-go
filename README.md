@@ -1,2 +1,1 @@
-# aoc-go
-# aoc-go
+# Advent of Code in Go
