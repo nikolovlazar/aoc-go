@@ -24,6 +24,7 @@ func part2(lines []string) {
 
 	sum := 0
 
+	// Look for a * symbol
 	for y, line := range lines {
 		line = line + "."
 
@@ -31,6 +32,8 @@ func part2(lines []string) {
 			switch character {
 			case '*':
 				numbers := getNearbyNumbers(x, y, numbersMap)
+				// If there are exactly 2 numbers around the gear (* symbol)
+				// multiply them and add them to the sum
 				if len(numbers) == 2 {
 					sum += multiplyNumbers(numbers)
 				}
@@ -46,12 +49,14 @@ func part1(lines []string) {
 
 	sum := 0
 
+	// Look for a special character
 	for y, line := range lines {
 		line = line + "."
 
 		for x, character := range line {
 			switch character {
 			case '*', '/', '$', '+', '&', '@', '#', '%', '=', '-':
+				// Get nearby numbers and add them to the sum
 				numbers := getNearbyNumbers(x, y, numbersMap)
 				sum += sumNumbers(numbers)
 			}
