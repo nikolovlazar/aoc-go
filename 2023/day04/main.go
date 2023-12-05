@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
-	"strconv"
 	"strings"
 
 	"github.com/nikolovlazar/aoc-go/input"
+	"github.com/nikolovlazar/aoc-go/utils"
 )
 
 func main() {
@@ -22,7 +22,9 @@ func part2(lines []string) {
 	for index, line := range lines {
 		parts := strings.Split(line, ": ")
 		numbers := strings.Split(parts[1], " | ")
-		winningNumbers, myNumbers := extractNumbers(numbers[0]), extractNumbers(numbers[1])
+		winningNumbersString := strings.ReplaceAll(numbers[0], "  ", " ")
+		myNumbersString := strings.ReplaceAll(numbers[1], "  ", " ")
+		winningNumbers, myNumbers := utils.ExtractNumbers(winningNumbersString), utils.ExtractNumbers(myNumbersString)
 		hits := 0
 
 		for _, winningNumber := range winningNumbers {
@@ -70,7 +72,9 @@ func part1(lines []string) {
 	for _, line := range lines {
 		parts := strings.Split(line, ": ")
 		numbers := strings.Split(parts[1], " | ")
-		winningNumbers, myNumbers := extractNumbers(numbers[0]), extractNumbers(numbers[1])
+		winningNumbersString := strings.ReplaceAll(numbers[0], "  ", " ")
+		myNumbersString := strings.ReplaceAll(numbers[1], "  ", " ")
+		winningNumbers, myNumbers := utils.ExtractNumbers(winningNumbersString), utils.ExtractNumbers(myNumbersString)
 		hits := 0
 
 		for _, winningNumber := range winningNumbers {
@@ -91,20 +95,4 @@ func part1(lines []string) {
 	}
 
 	fmt.Printf("Part 1: %d", points)
-}
-
-func extractNumbers(card string) []int {
-	card = strings.ReplaceAll(card, "  ", " ")
-	card = strings.TrimSpace(card)
-	numbers := []int{}
-	for _, number := range strings.Split(card, " ") {
-		parsed, err := strconv.Atoi(number)
-		if err != nil {
-			panic(err)
-		}
-
-		numbers = append(numbers, parsed)
-	}
-
-	return numbers
 }
